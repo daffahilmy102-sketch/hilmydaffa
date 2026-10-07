@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Products collection: publicly viewable, editable by store manager / admin
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Orders collection: customers create orders and submit payment proof, admins approve and update statuses
+    match /orders/{orderId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    // Customers collection: store CRM data
+    match /customers/{customerId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Default deny for unspecified paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Komorebi Living — Aesthetic Home Living & Marketplace",
+  "description": "Toko perlengkapan rumah & home living aesthetic dengan koleksi perabot, keramik artisan, dan dekorasi unik. Dilengkapi sistem keranjang belanja sinkron, checkout bukti pembayaran, dan panel admin terintegrasi real database.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

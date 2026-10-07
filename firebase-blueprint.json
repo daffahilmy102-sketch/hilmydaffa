@@ -1,0 +1,87 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Homeware product in the store catalogue",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["Living & Decor", "Kitchen & Dining", "Bed & Bath"] },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "description": { "type": "string" },
+        "dimensions": { "type": "string" },
+        "material": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "badge": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "category", "price", "stock", "description", "imageUrl"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order including shipping and payment status",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "shippingAddress": { "type": "string" },
+        "city": { "type": "string" },
+        "shippingCourier": { "type": "string" },
+        "shippingCost": { "type": "number" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "paymentProofUrl": { "type": "string" },
+        "paymentProofUploadedAt": { "type": "string" },
+        "paymentStatus": { "type": "string", "enum": ["waiting_payment", "proof_submitted", "approved", "rejected"] },
+        "orderStatus": { "type": "string", "enum": ["pending", "processing", "shipped", "completed", "cancelled"] },
+        "rejectionReason": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["orderNumber", "customerName", "customerEmail", "customerPhone", "shippingAddress", "total", "paymentStatus", "orderStatus"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer profile and summary statistics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "totalOrders": { "type": "number" },
+        "totalSpent": { "type": "number" },
+        "lastOrderAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "email"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Store catalogue products"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer orders with payment proof approval"
+    },
+    "/customers/{customerId}": {
+      "schema": { "$ref": "#/entities/Customer" },
+      "description": "Customer records for CRM and reporting"
+    }
+  }
+}
